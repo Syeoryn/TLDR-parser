@@ -1,5 +1,5 @@
 var parser = function(text){
-  var tldr = text.toLowerCase().match(/tl\x3bdr[^\n]+|tl\x3b dr[^\n]+|tldr[^\n]+|tl dr[^\n]+/g);
+  var tldr = text.toLowerCase().match(/tl\x3bdr[^<]+|tl\x3b dr[^<]+|tldr[^<]+|tl dr[^<]+/g);
 
   return tldr;
 }
@@ -26,7 +26,11 @@ var findTextInDOM = function(node){
 
 var findAll = function(){
   findTextInDOM();
-  alert(list);
+  message = ''
+  for (var i = 0; i < list.length; i++){
+    message += list[i] + '\n\n'
+  }
+  alert(message);
 }
 
 findAll();
