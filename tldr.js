@@ -1,5 +1,5 @@
 var parser = function(text){
-  var tldr = text.toLowerCase().match(/tl\x3bdr|tl\x3b dr|tldr|tl dr/g);
+  var tldr = text.toLowerCase().match(/tl\x3bdr [^\n]+|tl\x3b dr [^\n]+|tldr [^\n]+|tl dr [^\n]+/g);
 
   return tldr;
 }
