@@ -5,11 +5,14 @@
   "description": "Let us find the tl;dr of the email or article you are viewing so you don't have to!",
   "version": "1.0",
 
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["tldr.js"]
+    }
+  ],
+
   "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "https://secure.flickr.com/"
-  ]
+    "default_icon": "icon.png"
+  }
 }

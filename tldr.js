@@ -12,17 +12,19 @@ var findTextInDOM = function(node){
   for(var i = 0; i < node.children.length; i++){
     if(node.children.length){
       findTextInDOM(node.children[i]);
-    } else {
-      tldrs = parser(node.children[i].innerHTML);
-      if(tldrs){
-        for(var j = 0; j < tldrs.length; j++){
-          list.push(tldrs[j]);
-        }
+    }
+    tldrs = parser(node.children[i].innerHTML);
+    if(tldrs){
+      for(var j = 0; j < tldrs.length; j++){
+        list.push(tldrs[j]);
       }
     }
   }
 }
 
-findTextInDOM();
+var findAll = function(){
+  findTextInDOM();
+  alert(list);
+}
 
-alert(list);
+findAll();
