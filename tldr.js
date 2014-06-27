@@ -1,6 +1,5 @@
-var parser = function(text, filter){
-  filter = filter || 'tl;dr';
-  var tldr = text.match(/tl;dr [^\n]+/g);
+var parser = function(text){
+  var tldr = text.toLowerCase().match(/tl\x3bdr|tl\x3b dr|tldr|tl dr/g);
 
   return tldr;
 }
@@ -25,4 +24,4 @@ var findTextInDOM = function(node){
 
 findTextInDOM();
 
-console.log(list);
+alert(list);
