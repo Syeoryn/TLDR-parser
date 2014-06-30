@@ -23,7 +23,7 @@ var findAll = function(){
   for(var i = 0; i < list.length; i++){
     message += list[i] + '\n\n'
   }
-  alert(message);
+  if(message) alert(message);
 }
 
 findAll();
