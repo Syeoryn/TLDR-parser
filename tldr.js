@@ -27,7 +27,6 @@ var makePopup = function(message){
     node.innerText = message;
     node.style.width = '300px';
     node.style.position = 'fixed';
-    node.style.height = '500px';
     node.style.top = '0';
     node.style.right = '0';
     node.style['background-color'] = '#AAAAAA';
