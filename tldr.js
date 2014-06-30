@@ -6,18 +6,19 @@ var findTldrs = function(){
   return tldrs;
 }
 
-var findAll = function(){
-  var list =findTextOnPage();
+var createMessage = function(){
+  var tldrs =findTldrs();
   var message = '';
-  for(var i = 0; i < list.length; i++){
-    message += list[i] + '\n\n'
+  for(var i = 0; i < tldrs.length; i++){
+    if(tldrs[i].length > 5){
+      message += tldrs[i] + '\n\n'
+    }
   }
   if(!message) message = "No tl;drs!";
-
   return message;
 }
 
-var makePopup = function(){
+var makePopup = function(message){
   var node = document.createElement('div');
   node.className = 'tldr';
   node.innerText = message;
@@ -29,11 +30,11 @@ var makePopup = function(){
   node.style['background-color'] = 'red';
   node.style.overflow = 'hidden';
   node.style['z-index'] = 9001;
-  document.body.appendChild(node);
+  return node;
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  if(request.findAll){
-    findAll();
-  }
+  var message = createMessage();
+  var popup = makePopup(message);
+  document.body.appendChild(popup);
 });
