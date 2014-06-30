@@ -30,11 +30,24 @@ var makePopup = function(message){
   node.style['background-color'] = 'red';
   node.style.overflow = 'hidden';
   node.style['z-index'] = 9001;
+  node.style.opacity = 1;
   return node;
+}
+
+var removePopup = function(node){
+  node.style.opacity -= .001;
+  if(node.style.opacity <= .001){
+    document.body.removeChild(node);
+  } else {
+    setTimeout(function(){
+      removePopup(node)
+    }, 5);
+  }
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   var message = createMessage();
   var popup = makePopup(message);
   document.body.appendChild(popup);
+  setTimeout(function(){removePopup(popup)}, 5000);
 });
