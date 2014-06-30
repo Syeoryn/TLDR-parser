@@ -18,12 +18,17 @@ var findTextOnPage = function(node){
 }
 
 var findAll = function(){
+  var node = document.createElement('div');
+  node.className = 'tldr';
   var list =findTextOnPage();
   var message = '';
   for(var i = 0; i < list.length; i++){
     message += list[i] + '\n\n'
   }
-  if(message) alert(message);
 }
 
-findAll();
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  if(request.findAll){
+    findAll();
+  }
+});
