@@ -9,12 +9,15 @@ var findTldrs = function(){
 var createMessage = function(){
   var tldrs =findTldrs();
   var message = '';
-  for(var i = 0; i < tldrs.length; i++){
-    if(tldrs[i].length > 5){
-      message += tldrs[i] + '\n\n'
+  if(tldrs){
+    for(var i = 0; i < tldrs.length; i++){
+      if(tldrs[i].length > 5){
+        message += tldrs[i] + '\n\n'
+      }
     }
+  } else {
+    message = "No tl;drs!";
   }
-  if(!message) message = "No tl;drs!";
   return message;
 }
 
@@ -30,13 +33,14 @@ var makePopup = function(message){
   node.style['background-color'] = 'red';
   node.style.overflow = 'hidden';
   node.style['z-index'] = 9001;
-  node.style.opacity = 1;
+  node.style.opacity = 0.9;
+  node.style['font-size'] = '12px'
   return node;
 }
 
 var removePopup = function(node){
   node.style.opacity -= .001;
-  if(node.style.opacity <= .001){
+  if(node.style.opacity <= .005){
     document.body.removeChild(node);
   } else {
     setTimeout(function(){
@@ -45,9 +49,17 @@ var removePopup = function(node){
   }
 }
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+var popup = function(){
   var message = createMessage();
   var popup = makePopup(message);
+  var time = 5000;
+  if(message === 'No tl;drs!') time = 1000;
   document.body.appendChild(popup);
-  setTimeout(function(){removePopup(popup)}, 5000);
+  setTimeout(function(){removePopup(popup)}, time); 
+}
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  popup();
 });
+
+popup();
