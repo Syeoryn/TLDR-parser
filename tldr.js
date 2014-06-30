@@ -30,7 +30,7 @@ var makePopup = function(message){
   node.style.height = '500px';
   node.style.top = '0';
   node.style.right = '0';
-  node.style['background-color'] = 'red';
+  node.style['background-color'] = '#AAAAAA';
   node.style.overflow = 'hidden';
   node.style['z-index'] = 9001;
   node.style.opacity = 0.9;
@@ -42,6 +42,7 @@ var removePopup = function(node){
   node.style.opacity -= .001;
   if(node.style.opacity <= .005){
     document.body.removeChild(node);
+    poppedUp = false;
   } else {
     setTimeout(function(){
       removePopup(node)
@@ -50,16 +51,20 @@ var removePopup = function(node){
 }
 
 var popup = function(){
-  var message = createMessage();
-  var popup = makePopup(message);
-  var time = 5000;
-  if(message === 'No tl;drs!') time = 1000;
-  document.body.appendChild(popup);
-  setTimeout(function(){removePopup(popup)}, time); 
+  if(!poppedUp){
+    var message = createMessage();
+    var popup = makePopup(message);
+    var time = 5000;
+    if(message === 'No tl;drs!') time = 1000;
+    document.body.appendChild(popup);
+    poppedUp = true;
+    setTimeout(function(){removePopup(popup)}, time); 
+  }
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   popup();
 });
 
+var poppedUp = false;
 popup();
