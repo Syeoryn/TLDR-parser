@@ -40,7 +40,7 @@ var makePopup = function(message){
 var removePopup = function(node, step){
   step = step || .001;
   node.style['opacity'] -= step;
-  if(node.style['opacity'] <= .005){
+  if(node.style['opacity'] <= .01){
     document.body.removeChild(node);
     poppedUp = false;
   } else {
