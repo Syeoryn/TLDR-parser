@@ -54,7 +54,7 @@ var popup = function(showIfNoTldrs){
   if(poppedUp) return;
   var message = createMessage();
   var popup = makePopup(message);
-  var time = 5000;
+  var time = 4000;
   var step = .001;
   if(message === 'No tl;drs!'){
     if(!showIfNoTldrs) return;
